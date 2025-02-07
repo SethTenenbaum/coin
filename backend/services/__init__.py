@@ -1,13 +1,6 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 from coinbase.rest import RESTClient
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
-
-key_name = os.getenv('KEY_NAME')
-private_key = os.getenv('PRIVATE_KEY')
-# ONE_MINUTE, FIVE_MINUTE, FIFTEEN_MINUTE, THIRTY_MINUTE, ONE_HOUR, TWO_HOUR, SIX_HOUR, ONE_DAY
+from config import Config
 
 # Granularity options
 ONE_MINUTE = 'ONE_MINUTE'
@@ -18,6 +11,7 @@ ONE_HOUR = 'ONE_HOUR'
 TWO_HOUR = 'TWO_HOUR'
 SIX_HOUR = 'SIX_HOUR'
 ONE_DAY = 'ONE_DAY'
+
 # Granularity in seconds
 GRANULARITY_SECONDS = {
     ONE_MINUTE: 60,
@@ -30,8 +24,8 @@ GRANULARITY_SECONDS = {
     ONE_DAY: 86400
 }
 
-def get_candles_data(start_date, end_date, granularity):
-    client = RESTClient(api_key=key_name, api_secret=private_key)
+def fetch_candles_data(product_id, start_date, end_date, granularity):
+    client = RESTClient(api_key=Config.KEY_NAME, api_secret=Config.PRIVATE_KEY)
     
     # Convert dates to timestamps
     start_timestamp = int(datetime.strptime(start_date, '%Y-%m-%d %H:%M:%S').timestamp())
@@ -46,5 +40,5 @@ def get_candles_data(start_date, end_date, granularity):
         raise ValueError("The number of elements exceeds the maximum limit of 350.")
 
     # Ensure no more than 350 units of data are returned
-    candles = client.get_candles(product_id='BTC-USD', granularity=granularity, start=start_timestamp, end=end_timestamp, limit=350)
+    candles = client.get_candles(product_id=product_id, granularity=granularity, start=start_timestamp, end=end_timestamp, limit=350)
     return candles
