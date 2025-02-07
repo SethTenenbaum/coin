@@ -1,10 +1,8 @@
-from flask import Flask, jsonify
+from flask import Flask
+from views import api_blueprint
 
 app = Flask(__name__)
-
-@app.route('/api/data', methods=['GET'])
-def get_data():
-    return jsonify({"message": "Hello from the backend!"})
+app.register_blueprint(api_blueprint)
 
 if __name__ == '__main__':
     app.run(debug=True)
