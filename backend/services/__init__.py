@@ -26,7 +26,11 @@ GRANULARITY_SECONDS = {
 
 def fetch_candles_data(product_id, start_date, end_date, granularity):
     client = RESTClient(api_key=Config.KEY_NAME, api_secret=Config.PRIVATE_KEY)
-    
+
+    # Validate granularity
+    if granularity not in GRANULARITY_SECONDS:
+        raise ValueError(f"Invalid granularity: {granularity}. Must be one of {list(GRANULARITY_SECONDS.keys())}")
+
     # Convert dates to timestamps
     start_timestamp = int(datetime.strptime(start_date, '%Y-%m-%d %H:%M:%S').timestamp())
     end_timestamp = int(datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S').timestamp())
@@ -41,4 +45,29 @@ def fetch_candles_data(product_id, start_date, end_date, granularity):
 
     # Ensure no more than 350 units of data are returned
     candles = client.get_candles(product_id=product_id, granularity=granularity, start=start_timestamp, end=end_timestamp, limit=350)
+    return candles
+
+def fetch_candles_data_extended(product_id, start_date, end_date, granularity):
+    client = RESTClient(api_key=Config.KEY_NAME, api_secret=Config.PRIVATE_KEY)
+    
+    # Validate granularity
+    if granularity not in GRANULARITY_SECONDS:
+        raise ValueError(f"Invalid granularity: {granularity}. Must be one of {list(GRANULARITY_SECONDS.keys())}")
+
+    # Convert dates to timestamps
+    start_timestamp = int(datetime.strptime(start_date, '%Y-%m-%d %H:%M:%S').timestamp())
+    end_timestamp = int(datetime.strptime(end_date, '%Y-%m-%d %H:%M:%S').timestamp())
+
+    granularity_seconds = GRANULARITY_SECONDS[granularity]
+    max_elements = 350
+    candles = []
+
+    current_start = start_timestamp
+
+    while current_start < end_timestamp:
+        current_end = min(current_start + (max_elements * granularity_seconds), end_timestamp)
+        partial_candles = client.get_candles(product_id=product_id, granularity=granularity, start=current_start, end=current_end, limit=max_elements)
+        candles.extend(partial_candles)
+        current_start = current_end
+
     return candles

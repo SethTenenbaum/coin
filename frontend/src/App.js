@@ -1,18 +1,22 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { fetchData } from './actions/dataActions';
 
 const App = () => {
-  const dispatch = useDispatch();
-  const message = useSelector(state => state.data.message);
+  const [state, dispatch] = useReducer(dataReducer, {
+    loading: false,
+    data: null,
+    error: null
+  });
 
-  useEffect(() => {
-    dispatch(fetchData());
-  }, [dispatch]);
+  const handleFetchData = (productId, startDate, endDate, granularity) => {
+    fetchData(productId, startDate, endDate, granularity)(dispatch);
+  };
 
   return (
     <div>
-      <h1>{message ? message : 'Loading...'}</h1>
+      <Topbar onFetchData={handleFetchData} />
+      {state.loading && <h1>Loading...</h1>}
+      {state.error && <h1 style={{ color: 'red' }}>{state.error}</h1>}
+      {state.data && <pre>{JSON.stringify(state.data, null, 2)}</pre>}
     </div>
   );
 };
