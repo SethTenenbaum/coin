@@ -1,8 +1,10 @@
 from flask import Flask
-from views import api_blueprint
 
 app = Flask(__name__)
-app.register_blueprint(api_blueprint)
+
+@app.route('/api/candles')
+def get_data():
+    return {"message": "Hello from Flask!"}
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(port=5001)

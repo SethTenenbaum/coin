@@ -5,16 +5,16 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel index.html",
+    "start": "parcel index.html --port 1234",
     "build": "parcel build index.html"
   },
-  "proxy": "http://localhost:5000",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.1",
+    "axios": "^1.7.9",
     "parcel": "^2.13.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -22,6 +22,7 @@
     "redux": "^5.0.1"
   },
   "devDependencies": {
+    "buffer": "^6.0.3",
     "process": "^0.11.10"
   }
 }
