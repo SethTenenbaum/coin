@@ -8,3 +8,14 @@ This project is designed to test trading strategies using historical data. It al
 - `frontend/`: Directory containing the React/Redux frontend.
 - `.gitignore`: File specifying which files and directories to ignore in the repository.
 - `README.md`: This file.
+
+
+# Setup
+
+```bash
+docker run -d --name timescaledb -p 127.0.0.1:5432:5432 \
+-e POSTGRES_PASSWORD=password timescale/timescaledb-ha:pg17
+
+psql -d "postgres://postgres:password@localhost/postgres"
+
+Note: The above commands worked for me to set up and connect to TimescaleDB.
