@@ -2,23 +2,7 @@
   padding: 20px;
   background-color: #f8f9fa;
   border-bottom: 1px solid #dee2e6;
-}
-
-.topbar__form {
-  display: flex;
-  flex-direction: column;
-}
-
-.topbar__label {
-  margin-bottom: 10px;
-}
-
-.topbar__input,
-.topbar__select {
-  padding: 8px;
-  margin-top: 5px;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
+  position: relative;
 }
 
 .topbar__button {
