@@ -1,3 +1,6 @@
+import React, { useReducer } from 'react';
+import Topbar from './components/Topbar';
+import dataReducer from './reducers/dataReducer';
 import { fetchData } from './actions/dataActions';
 
 const App = () => {

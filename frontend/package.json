@@ -2,6 +2,7 @@
   "name": "frontend",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "parcel index.html",
@@ -19,5 +20,8 @@
     "react-dom": "^19.0.0",
     "react-redux": "^9.2.0",
     "redux": "^5.0.1"
+  },
+  "devDependencies": {
+    "process": "^0.11.10"
   }
 }

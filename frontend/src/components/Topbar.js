@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../styles/Topbar.css';
 
 const Topbar = ({ onFetchData }) => {
   const [productId, setProductId] = useState('BTC-USD');
@@ -13,34 +14,38 @@ const Topbar = ({ onFetchData }) => {
 
   return (
     <div className="topbar">
-      <form onSubmit={handleSubmit}>
-        <label>
+      <form className="topbar__form" onSubmit={handleSubmit}>
+        <label className="topbar__label">
           Product ID:
           <input
+            className="topbar__input"
             type="text"
             value={productId}
             onChange={(e) => setProductId(e.target.value)}
           />
         </label>
-        <label>
+        <label className="topbar__label">
           Start Date:
           <input
+            className="topbar__input"
             type="datetime-local"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
           />
         </label>
-        <label>
+        <label className="topbar__label">
           End Date:
           <input
+            className="topbar__input"
             type="datetime-local"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
           />
         </label>
-        <label>
+        <label className="topbar__label">
           Granularity:
           <select
+            className="topbar__select"
             value={granularity}
             onChange={(e) => setGranularity(e.target.value)}
           >
@@ -54,7 +59,7 @@ const Topbar = ({ onFetchData }) => {
             <option value="ONE_DAY">ONE_DAY</option>
           </select>
         </label>
-        <button type="submit">Load Data</button>
+        <button className="topbar__button" type="submit">Load Data</button>
       </form>
     </div>
   );
