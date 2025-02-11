@@ -74,12 +74,7 @@ def fetch_candles_data_extended(product_id, start_timestamp, end_timestamp, gran
         print(f"Type of partial_candles: {type(partial_candles)}")
         print(f"partial_candles: {partial_candles}")
         
-        # Convert partial_candles to a JSON-serializable format
-        if isinstance(partial_candles, list):
-            for candle in partial_candles:
-                candles.append(candle.to_dict())  # Assuming each candle has a to_dict() method
-        else:
-            candles.append(partial_candles.to_dict())  # Assuming partial_candles has a to_dict() method
+        candles.append(partial_candles.to_dict())  # Assuming partial_candles has a to_dict() method
         
         current_start = current_end
         print(f"Fetched candles from {current_start} to {current_end}")
