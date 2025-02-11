@@ -8,11 +8,15 @@ const fetchData = (productId, startDate, endDate, granularity) => async dispatch
   dispatch({ type: FETCH_DATA_REQUEST });
 
   try {
+    // Convert startDate and endDate to Unix time strings
+    const startTimestamp = new Date(startDate).getTime() / 1000;
+    const endTimestamp = new Date(endDate).getTime() / 1000;
+
     const response = await axios.get('/api/candles', {
       params: {
         product_id: productId,
-        start_date: startDate,
-        end_date: endDate,
+        start_date: startTimestamp,
+        end_date: endTimestamp,
         granularity: granularity
       }
     });
@@ -21,4 +25,5 @@ const fetchData = (productId, startDate, endDate, granularity) => async dispatch
     dispatch({ type: FETCH_DATA_FAILURE, error: error.response ? error.response.data.error : error.message });
   }
 };
+
 export { fetchData };

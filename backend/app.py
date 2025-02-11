@@ -1,10 +1,8 @@
 from flask import Flask
+from routes.candles import candles_bp
 
 app = Flask(__name__)
-
-@app.route('/api/candles')
-def get_data():
-    return {"message": "Hello from Flask!"}
+app.register_blueprint(candles_bp)
 
 if __name__ == '__main__':
-    app.run(port=5001)
+    app.run(host='0.0.0.0', port=5001, debug=True)
