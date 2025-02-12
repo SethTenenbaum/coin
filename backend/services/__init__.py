@@ -59,7 +59,6 @@ def fetch_candles_data_extended(product_id, start_timestamp, end_timestamp, gran
     candles = []
 
     current_start = start_timestamp
-    # print(f"Fetching candles from {current_start} to {end_timestamp}")
     
     if current_start >= end_timestamp:
         print(f"Error: start_timestamp ({current_start}) is not less than end_timestamp ({end_timestamp})")
@@ -69,10 +68,6 @@ def fetch_candles_data_extended(product_id, start_timestamp, end_timestamp, gran
         print(f"Fetching candles from {current_start} to {current_start + (max_elements * granularity_seconds)}")
         current_end = min(current_start + (max_elements * granularity_seconds), end_timestamp)
         partial_candles = client.get_candles(product_id=product_id, granularity=granularity, start=current_start, end=current_end, limit=max_elements)
-        
-        # Print the type of partial_candles
-        print(f"Type of partial_candles: {type(partial_candles)}")
-        print(f"partial_candles: {partial_candles}")
         
         candles.append(partial_candles.to_dict())  # Assuming partial_candles has a to_dict() method
         
